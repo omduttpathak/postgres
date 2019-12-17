@@ -1,0 +1,138 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  serviceName: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        -
+          args:
+            - "-c"
+            - config_file=/etc/postgres.conf
+            - "-c"
+            - hba_file=/etc/pg_hba.conf
+          env:
+            -
+              name: POSTGRES_USER
+              value: postgres
+            -
+              name: PGUSER
+              value: postgres
+            -
+              name: POSTGRES_DB
+              value: postgres
+            -
+              name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+            -
+              name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: postgres
+            -
+              name: REPLICATION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: replicaPassword
+                  name: postgres
+            -
+              name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+          image: "csp2-centos-1:5000/fiware-postgres"
+          resources:
+            limits:
+              memory: 1Gi
+              cpu: 500m
+            requests:
+              memory: 500Mi
+              cpu: 250m
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - "-c"
+                - "exec pg_isready --host $POD_IP"
+            failureThreshold: 6
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: postgres
+          ports:
+            -
+              containerPort: 5432
+              name: postgres
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - "-c"
+                - "exec pg_isready --host $POD_IP"
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+              cpu: 500m
+          volumeMounts:
+            -
+              mountPath: /var/lib/postgresql/data/pgdata
+              name: postgres
+              subPath: postgres-db
+            -
+              mountPath: /etc/postgres.conf
+              name: postgres-config
+              subPath: postgres.conf
+            -
+              mountPath: /etc/master.conf
+              name: postgres-config
+              subPath: master.conf
+            -
+              mountPath: /etc/pg_hba.conf
+              name: postgres-config
+              subPath: pg_hba.conf
+            -
+              mountPath: /docker-entrypoint-initdb.d/create-replica-user.sh
+              name: postgres-config
+              subPath: create-replica-user.sh
+      terminationGracePeriodSeconds: 10
+      volumes:
+        -
+          configMap:
+            name: postgres
+          name: postgres-config
+  updateStrategy:
+    type: RollingUpdate
+  volumeClaimTemplates:
+    -
+      metadata:
+        name: postgres
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Mi
+        storageClassName: manual
