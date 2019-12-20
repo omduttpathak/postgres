@@ -14,7 +14,7 @@ stages:
 - name: Create secret and config map
   steps:
   - applyYamlConfig:
-      path: ./config/secret.yml
+      path: .secret.yml
   - applyYamlConfig:
       path: ./postgres-configmap.yml
 - name: Deploy
