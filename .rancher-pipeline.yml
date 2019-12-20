@@ -16,14 +16,14 @@ stages:
   - applyYamlConfig:
       path: ./secret.yaml
   - applyYamlConfig:
-      path: ./postgres-configmap.yml
+      path: ./postgres-configmap.yaml
 - name: Deploy
   steps:
   - applyYamlConfig:
-      path: ./statefulset-master.yml
+      path: ./statefulset-master.yaml
   - applyYamlConfig:
-      path: ./service.yml
+      path: ./service.yaml
   - applyYamlConfig:
-      path: ./statefulset-replica.yml
+      path: ./statefulset-replica.yaml
 timeout: 60
 notification: {}
