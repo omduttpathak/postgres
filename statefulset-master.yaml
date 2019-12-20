@@ -52,7 +52,7 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: status.podIP
-          image: "csp2-centos-1:5000/fiware-postgres"
+          image: "csp2-centos-1:5000/fiware-postgres:${CICD_EXECUTION_SEQUENCE}"
           resources:
             limits:
               memory: 1Gi
