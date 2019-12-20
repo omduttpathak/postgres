@@ -1,0 +1,29 @@
+stages:
+- name: Build
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: fiware-postgres
+      pushRemote: true
+      registry: 192.168.100.176:5000
+    env:
+      PLUGIN_DEBUG: "true"
+      PLUGIN_INSECURE: "true"
+      PLUGIN_STORAGE_PATH: /var/lib/docker2
+- name: Create secret and config map
+  steps:
+  - applyYamlConfig:
+      path: ./config/secret.yml
+  - applyYamlConfig:
+      path: ./postgres-configmap.yml
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./statefulset-master.yml
+  - applyYamlConfig:
+      path: ./service.yml
+  - applyYamlConfig:
+      path: ./statefulset-replica.yml
+timeout: 60
+notification: {}
