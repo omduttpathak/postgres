@@ -24,5 +24,11 @@ stages:
       path: ./service.yaml
   - applyYamlConfig:
       path: ./statefulset-replica.yaml
+  - runScriptConfig:
+      image: python:latest
+      shellScript: |-
+        apt-get update
+        apt-get install sshpass
+        sshpass -p password ssh -tt -o StrictHostKeyChecking=no newuser@192.168.100.178 ./check_pod_status.sh p-kpggk-pipeline postgres
 timeout: 60
 notification: {}
