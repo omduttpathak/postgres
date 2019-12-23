@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: postgres
-          image: csp2-centos-4:5000/fiware-postgres:${CICD_EXECUTION_SEQUENCE}
+          image: csp2-centos-4:5000/IMG_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
           args: ['-c', 'config_file=/etc/postgres.conf', '-c', 'hba_file=/etc/pg_hba.conf']
           
           imagePullPolicy: IfNotPresent
