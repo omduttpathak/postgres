@@ -6,7 +6,7 @@ stages:
       buildContext: .
       tag: img_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
       pushRemote: true
-      registry: 192.168.100.151:5001
+      registry: csp2-centos-1:5000
     env:
       PLUGIN_DEBUG: "true"
       PLUGIN_INSECURE: "true"
