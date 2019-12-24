@@ -4,7 +4,7 @@ stages:
   - publishImageConfig:
       dockerfilePath: ./Dockerfile
       buildContext: .
-      tag: IMG_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
+      tag: img_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
       pushRemote: true
       registry: 192.168.100.151
     env:
