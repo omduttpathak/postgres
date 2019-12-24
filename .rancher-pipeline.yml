@@ -31,5 +31,19 @@ stages:
         apt-get update
         apt-get install sshpass
         sshpass -p password ssh -tt -o StrictHostKeyChecking=no newuser@192.168.100.178 ./check_pod_status.sh p-kpggk-pipeline postgres
+- name: test
+  steps:
+  - runScriptConfig:
+      image: python:latest
+      shellScript: |
+        apt-get update
+        echo Y | apt-get install npm
+        npm -v
+        npm install -g newman
+        newman run http://192.168.100.178/csp_containerizationandautomation/postgres/raw/master/Postgres.postman_collection.json
+  when:
+    branch: {}
+    event: {}
+
 timeout: 60
 notification: {}
