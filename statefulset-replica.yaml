@@ -26,7 +26,7 @@ spec:
       
       initContainers:
         - name: setup-replica-data-directory
-          image: csp2-centos-4:5000/img_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
+          image: csp2-centos-1:5000/img_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
           resources:
             limits:
               memory: 1Gi
@@ -61,7 +61,7 @@ spec:
 
       containers:
         - name: postgres-replica
-          image: csp2-centos-4:5000/img_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
+          image: csp2-centos-1:5000/img_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
           resources:
             limits:
               memory: 1Gi
