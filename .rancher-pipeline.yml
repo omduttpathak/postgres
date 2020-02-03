@@ -6,20 +6,14 @@ stages:
       buildContext: .
       tag: img_fiware-postgres_v11.3:${CICD_EXECUTION_SEQUENCE}
       pushRemote: true
-      #registry: 172.30.76.49:5000
       registry: csp2-centos-1:5000
     env:
       PLUGIN_DEBUG: "true"
       PLUGIN_INSECURE: "true"
       PLUGIN_STORAGE_PATH: /var/lib/docker2
     when:
-      branch:
-        include:
-        - master
-      event:
-        include:
-        - pull_request
-        - push
+      branch: {}
+      event: {}
 - name: Create secret and config map
   steps:
   - applyYamlConfig:
