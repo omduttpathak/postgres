@@ -126,4 +126,4 @@ spec:
       storageClassName: "postgres-sc"
       resources:
         requests:
-          storage: 4Gi
+          storage: 2Gi
