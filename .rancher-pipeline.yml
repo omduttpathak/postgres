@@ -54,7 +54,12 @@ stages:
         npm install -g newman
         newman run ./Postgres.postman_collection.json
   when:
-    branch: {}
-    event: {}
+    branch:
+      include:
+      - master
+    event:
+      include:
+      - pull_request
+      - push
 timeout: 60
 notification: {}
