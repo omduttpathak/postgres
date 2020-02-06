@@ -1,0 +1,780 @@
+{
+	"info": {
+		"_postman_id": "97a98018-950d-40d2-a558-5c15ab789eb4",
+		"name": "postgres",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "processed data stored in postgres successfully",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"diviceName\": \"FIXED READER\",\n    \"locationType\":\"O\",\n    \"locationTypeId\":\"10\",\n    \"locationName\":\"Noida\",\n    \"locationId\":\"0003\",\n    \"deviceType\":\"FR\",\n    \"deviceMacId\":\"84:24:8D:EE:2F:D2\"\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:7896/iot/json?i=fixeddevice&k=4jggokgpepnvsb2uv4s40d59oa",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "7896",
+					"path": [
+						"iot",
+						"json"
+					],
+					"query": [
+						{
+							"key": "i",
+							"value": "fixeddevice"
+						},
+						{
+							"key": "k",
+							"value": "4jggokgpepnvsb2uv4s40d59oa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify processed data stored in postgres",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"diviceName\": \"FIXED READER\",\n    \"locationType\":\"O\",\n    \"locationTypeId\":\"10\",\n    \"locationName\":\"Noida\",\n    \"locationId\":\"0003\",\n    \"deviceType\":\"FR\",\n    \"deviceMacId\":\"84:24:8D:EE:2F:D2\"\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:7896/iot/json?i=fixeddevice&k=4jggokgpepnvsb2uv4s40d59oa",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "7896",
+					"path": [
+						"iot",
+						"json"
+					],
+					"query": [
+						{
+							"key": "i",
+							"value": "fixeddevice"
+						},
+						{
+							"key": "k",
+							"value": "4jggokgpepnvsb2uv4s40d59oa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify processed data not stored in pstgs, draco srvc nt gven",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"diviceName\": \"FIXED READER\",\n    \"locationType\":\"O\",\n    \"locationTypeId\":\"10\",\n    \"locationName\":\"Noida\",\n    \"locationId\":\"0003\",\n    \"deviceType\":\"FR\",\n    \"deviceMacId\":\"84:24:8D:EE:2F:D2\"\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:7896/iot/json?i=fixeddevice&k=4jggokgpepnvsb2uv4s40d59oa",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "7896",
+					"path": [
+						"iot",
+						"json"
+					],
+					"query": [
+						{
+							"key": "i",
+							"value": "fixeddevice"
+						},
+						{
+							"key": "k",
+							"value": "4jggokgpepnvsb2uv4s40d59oa"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "data not stored, if sbscption is confgrd with wrong entity",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"A subscription to get info about processed data\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity10\",\n          \"type\": \"FldbEntities\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "data not stored Draco processor,NGSIToPostgreSQL not configrd(port num)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"A subscription to get info about processed data\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity10\",\n          \"type\": \"FldbEntities\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "data not stored NGSIToPostgreSQL not be configrd properly (db name & pswrd)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"A subscription to get info about processed data\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity10\",\n          \"type\": \"FldbEntities\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "data not stored, PostgreSQL database if PostgreSQL confgration, no remote access enabled",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"A subscription to get info about processed data\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity10\",\n          \"type\": \"FldbEntities\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "data not stored if PostgreSQL not confgurd based on details and versions.",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"A subscription to get info about processed data\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity10\",\n          \"type\": \"FldbEntities\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "data not stored if draco controller service is not given",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"A subscription to get info about processed data\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity10\",\n          \"type\": \"FldbEntities\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "if payload has wrong API key",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_enriched"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"A subscription to get info about processed data\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity10\",\n          \"type\": \"FldbEntities\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Successfully Storing of RAW RFID device data in PostgreSQL database",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "verify raw data stored in postgres & evrytime change in context data",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raw data is not stored if sbscrptin is confgred with wrong notification URL",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raw data is not stored if subscrption is configured with wrong id & entity type",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raw data not stored if draco controller service postgres is not given user name & pswrd",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raw data not stored if draco processor, NGSIToPostgres is not confgred(port num)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raw data not stored if draco processor is not configured(db name & db paswrd)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raw data not stored if postgres configuration have no remote access",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "raw data not stored if postgres not configured on required detail & version ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "if payload has wrong API key",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "fiware-service",
+						"value": "fiwareldb"
+					},
+					{
+						"key": "fiware-servicepath",
+						"value": "/registration_raw"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"description\": \"Notify Draco of all context changes\",\n  \"subject\": {\n    \"entities\": [\n      {\n         \"id\": \"FldbEntity1\",\n          \"type\": \"FldbEntity\"\n      }\n    ]\n  },\n  \"notification\": {\n    \"http\": {\n      \"url\": \"http://<Random_IP_Address>:5050/v2/notify\"\n    }\n  },\n  \"throttling\": 5\n}"
+				},
+				"url": {
+					"raw": "http://<IP_Address>:1026/v2/subscriptions",
+					"protocol": "http",
+					"host": [
+						"<IP_Address>"
+					],
+					"port": "1026",
+					"path": [
+						"v2",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
